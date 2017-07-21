@@ -55,13 +55,15 @@ static void
 tower_create(struct aoi *aoi, float region[2])
 {
 	int i;
-	aoi->region[0] = region[0] / GRID;
-	aoi->region[1] = region[1] / GRID;
-	int size = aoi->region[0] * aoi->region[1];
+	region[0] /= GRID;
+	region[1] /= GRID;
+	aoi->region[0] = region[0];
+	aoi->region[1] = region[1];
+	int size = (region[0] + 1) * (region[1] + 1) + 1;
 	struct tower *scene = my_malloc(sizeof(*scene) * size);
 	for (i = 0; i < size; i++) {
 		scene[i].movers = NULL;
-		scene[i].markud = -1;
+		scene[i].markud = 0;
 	}
 	aoi->scene = scene;
 	return ;
@@ -311,8 +313,8 @@ aoi_move(struct aoi *aoi, int id, float coord[2])
 	float radius = RADIUS;
 	struct object *obj;
 	obj = hash_get(aoi->hash, id);
-	assert(coord[0] <= aoi->region[0]);
-	assert(coord[1] <= aoi->region[1]);
+	assert(coord[0] / GRID <= aoi->region[0]);
+	assert(coord[1] / GRID <= aoi->region[1]);
 	if (obj == NULL) {
 		struct tower *tower;
 		obj = object_new(aoi, id, coord, radius);
