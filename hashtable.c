@@ -25,13 +25,14 @@ hash_createslot(struct hash_table *hash, int size)
 	int i;
 	struct hash_slot *slot;
 	hash->cap = size;
-	hash->slot = my_malloc(sizeof(struct hash_slot) * size);
+	slot = my_malloc(sizeof(struct hash_slot) * size);
+	hash->slot = slot;
 	for (i = 0; i < size; i++) {
-		slot = &hash->slot[i];
 		slot->id = -1;
 		slot->next = -1;
+		++slot;
 	}
-	hash->lastfree = slot + 1;
+	hash->lastfree = slot;
 }
 
 static inline struct hash_slot *

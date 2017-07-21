@@ -3,5 +3,5 @@
 all:testaoi
 
 testaoi: testaoi.c aoi.c hashtable.c
-	gcc -Wall -g -o $@ $^ -lm
+	gcc -Wall -g -O2 -o $@ $^ -lm
 
