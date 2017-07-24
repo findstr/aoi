@@ -142,7 +142,7 @@ static inline void
 mark_resize(struct mark_buffer *mark)
 {
 	mark->cap *= 2;
-	mark->arr = my_malloc(mark->cap * sizeof(int));
+	mark->arr = my_realloc(mark->arr, mark->cap * sizeof(int));
 }
 
 static inline void
@@ -158,15 +158,6 @@ static inline void
 mark_free(struct mark_buffer *mark)
 {
 	my_free(mark->arr);
-}
-
-static inline void
-mark_do(struct mark_buffer *mark, int id)
-{
-	if (mark->idx >= mark->cap) {
-		mark_resize(mark);
-	}
-	mark->arr[mark->idx++] = id;
 }
 
 static inline void
