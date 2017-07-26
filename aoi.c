@@ -8,7 +8,7 @@
 #include "hashtable.h"
 #include "aoi.h"
 
-#define	GRID (1.0f)
+#define	GRID (3.0f)
 #define	RADIUS 9.0f
 
 #define	MARK_CLEAR	(0)
@@ -111,7 +111,7 @@ event_create(int size)
 	q->idx = 0;
 	q->cnt = 0;
 	q->cap = size;
-	q->arr = my_malloc(sizeof(struct aoi_event *) * size);
+	q->arr = my_malloc(sizeof(struct aoi_event) * size);
 	return q;
 }
 
