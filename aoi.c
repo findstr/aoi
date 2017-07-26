@@ -396,9 +396,20 @@ aoi_create(float region[2], aoi_alloc_t alloc, void *ud)
 	return aoi;
 }
 
+static void
+obj_free(int id, void *obj, void *ud)
+{
+	(void)id;
+	(void)ud;
+	if (obj != NULL)
+		my_free(obj);
+	return ;
+}
+
 void
 aoi_free(struct aoi *aoi)
 {
+	hash_foreach(aoi->hash, obj_free, NULL);
 	hash_free(aoi->hash);
 	event_free(aoi->event);
 	mark_free(&aoi->mark);

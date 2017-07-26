@@ -67,6 +67,7 @@ dump_user(struct user *u)
 	printf("========= id: %d x:%f z:%f %p ==========\n",
 		u->id, u->coord[0], u->coord[1], u->around);
 	hash_foreach(u->around, iter, u);
+	hash_free(u->around);
 }
 
 static void *
